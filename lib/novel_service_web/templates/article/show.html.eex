@@ -1,0 +1,12 @@
+<h1><%= @article.title %></h1>
+  <p>
+    <strong>ユーザー: </strong>
+    <%= @article.user.name %>
+  </p>
+  <p>
+    <%= @article.content %>
+  </p>
+  <p>
+    <%= @article.views %>
+  </p>
+<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>

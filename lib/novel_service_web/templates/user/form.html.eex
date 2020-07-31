@@ -1,0 +1,26 @@
+<%= form_for @changeset, @action, fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>入力に誤りが<%= Enum.count(f.errors) %>つあります</p>
+    </div>
+  <% end %>
+
+  <%= label f, :名前 %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :メール %>
+  <%= email_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <%= label f, :パスワード %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= label f, :確認用パスワード %>
+  <%= password_input f, :password_confirmation %>
+  <%= error_tag f, :password_confirmation %>
+  <div>
+    <%= submit "Save" %>
+  </div>
+<% end %>

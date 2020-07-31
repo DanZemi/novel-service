@@ -14,17 +14,50 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <%= if current_user(@conn) do %>
+              <li><%= link "logout", to: Routes.session_path(@conn, :logout), method: :delete %></li>
+            <% end %>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
+        <%= link to: Routes.page_path(@conn, :index), class: "phx-logo" do %>
+          <img src="<%= Routes.static_path(@conn, "/images/aha.png") %>" alt="Phoenix Framework Logo"/>
+        <% end %>
       </section>
     </header>
+    <div class="jumbotron">
+  <%= unless current_user(@conn) do %>
+    <p class="lead">
+      <%= link to: Routes.session_path(@conn, :new) do %>
+        <button type="button" class="btn btn-primary">
+          ログイン
+        </button>
+      <% end %>
+      <%= link to: Routes.user_path(@conn, :new) do %>
+        <button type="button" class="btn btn-primary">
+          ユーザー登録
+        </button>
+      <% end %>
+  <%= else %>
+      <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)) do %>
+        <button type="button" class="btn btn-primary">
+          マイページ
+        </button>
+      <% end %>
+  <% end %>
+  <%= link to: Routes.article_path(@conn, :index) do %>
+    <button type="button" class="btn btn-primary">
+      小説一覧
+    </button>
+  <% end %>
+  <%= link to: Routes.user_path(@conn, :index) do %>
+    <button type="button" class="btn btn-primary">
+      ユーザー一覧
+    </button>
+  <% end %>
+</div>
     <%= @inner_content %>
   </body>
 </html>

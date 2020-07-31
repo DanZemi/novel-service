@@ -18,6 +18,9 @@ config :novel_service, NovelServiceWeb.Endpoint,
   pubsub_server: NovelService.PubSub,
   live_view: [signing_salt: "jZPTxvmo"]
 
+config :novel_service, NovelService.Accounts.Guardian,
+  issuer: "novel_service",
+  secret_key: "9eLzijmMX4byt1o/GhEvnSK9bPgwP88nmgNkv3fy0jOR48Brb9OUjtBqYuxiNwdr"
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

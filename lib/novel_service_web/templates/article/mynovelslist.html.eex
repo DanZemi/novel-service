@@ -1,0 +1,18 @@
+<h2>小説一覧</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>最終更新日</th>
+        <th>作業</th>
+      </tr>
+    </thead>
+  <tbody>
+    <tr>
+      <td><%= link @article.title, to: Routes.article_path(@conn, :show, @article), class: "btn btn-default btn-xs" %></td>
+      <td><%= @article.updated_at %></td>
+      <td><%= link "編集", to: Routes.article_path(@conn, :edit, @article) %>/ <%= link "削除", to: Routes.article_path(@conn, :delete, @article), method: :delete, data: [confirm: "本当によろしいですか？"] %></td>
+    </tr>
+  </tbody>
+</table>
+<span><%= link "Back", to: Routes.user_path(@conn, :mypage, @article.user) %></span>

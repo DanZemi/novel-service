@@ -1,0 +1,32 @@
+<h1><%= @user.name %> [id: <%= @user.id %>]のマイページ</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ユーザー名</th>
+      <th>ユーザーID</th>
+    </tr>
+  </thead>
+    <tr>
+      <td><%= @user.name %></td>
+      <th><%= @user.id %></th>
+    </tr>
+</table>
+<h2>小説一覧</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>タイトル</th>
+        <th>最終更新日</th>
+      </tr>
+    </thead>
+  <tbody>
+<%= for article <- @user.articles do %>
+  <tr>
+    <td><%= link article.title, to: Routes.article_path(@conn, :show, article), class: "btn btn-default btn-xs" %></td>
+    <td><%= article.updated_at %></td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>

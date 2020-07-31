@@ -1,0 +1,20 @@
+<h1>ユーザー一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ユーザー名</th>
+      <th>ID</th>
+      <th>登録日時</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user <- @users do %>
+    <tr>
+      <td><%= link user.name, to: Routes.user_path(@conn, :show, user) %></td>
+      <td><%= user.id %></td>
+      <td><%= user.inserted_at %></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>

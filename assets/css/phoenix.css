@@ -49,6 +49,7 @@ select {
 }
 .phx-logo img {
   width: auto;
+  height: 100px;
   display: block;
 }
 

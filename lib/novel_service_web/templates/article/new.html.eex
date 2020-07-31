@@ -1,0 +1,5 @@
+<h1>新規小説作成</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.article_path(@conn, :create)) %>
+
+<span><%= link "Back", to: Routes.user_path(@conn, :mypage, current_user(@conn)) %></span>

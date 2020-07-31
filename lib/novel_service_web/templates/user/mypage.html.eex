@@ -1,0 +1,19 @@
+<h1><%= @user.name %> [id:<%= @user.id %>]のマイページ</h1>
+<h2>小説投稿</h2>
+<div class="nav">
+  <ul>
+    <li><%= link "新規小説作成", to: Routes.article_path(@conn, :new) %></li>
+  </ul>
+  
+<h2>小説編集</h2>
+  <ul>
+    <%= for article <- @user.articles do %>
+      <li><%= link article.title, to: Routes.article_path(@conn, :mynovelslist, article) %></li>
+    <% end %>
+  </ul>
+
+<h2>ユーザー設定</h2>
+  <ul>
+    <li><%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user) %></li>
+  </ul>
+</div>
