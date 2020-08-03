@@ -21,6 +21,7 @@ defmodule NovelServiceWeb.ArticleController do
   def create(conn, %{"article" => article_params}) do
     case Novel.create_article(Guardian.Plug.current_resource(conn), article_params) do
       {:ok, article} ->
+        Novel.inc_have_articles(article)
         conn
         |> put_flash(:info, "Article created successfully.")
         |> redirect(to: Routes.article_path(conn, :show, article))
@@ -30,16 +31,16 @@ defmodule NovelServiceWeb.ArticleController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, %{"id" => hash_id}) do
     article =
-      id
+      hash_id
       |> Novel.get_article!()
       |> Novel.inc_page_views()
     render(conn, "show.html", article: article)
   end
 
-  def mynovelslist(conn, %{"id" => id}) do
-    article = Novel.get_article!(id)
+  def mynovelslist(conn, %{"id" => hash_id}) do
+    article = Novel.get_article!(hash_id)
     render(conn, "mynovelslist.html", article: article)
   end
 
@@ -66,7 +67,6 @@ defmodule NovelServiceWeb.ArticleController do
   def delete(conn, _) do
     article = conn.assigns.article
     {:ok, _article} = Novel.delete_article(article)
-
     conn
     |> put_flash(:info, "Article deleted successfully.")
     |> redirect(to: Routes.article_path(conn, :index))

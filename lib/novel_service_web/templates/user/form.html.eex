@@ -5,7 +5,8 @@
     </div>
   <% end %>
 
-  <%= label f, :名前 %>
+  <%= label f, :name, "名前" %>
+  <p><6文字以上・半角英数字></p>
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 

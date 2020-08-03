@@ -2,7 +2,8 @@ defmodule NovelService.Novel.Article do
   use Ecto.Schema
   import Ecto.Changeset
   alias NovelService.Accounts.User
-
+  @primary_key {:hash_id, :string, []}
+  @derive {Phoenix.Param, key: :hash_id}
   schema "articles" do
     field :content, :string
     field :title, :string

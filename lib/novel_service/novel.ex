@@ -57,31 +57,18 @@ defmodule NovelService.Novel do
   """
   def create_article(%User{} = user, attrs \\ %{}) do
     %Article{}
-    |> IO.inspect
     |> Article.changeset(attrs)
     |> Ecto.Changeset.put_change(:user_id, user.id)
-    |> IO.inspect
+    |> Ecto.Changeset.put_change(:hash_id, put_pass_hash_id(user.id, user.have_articles))
     |> Repo.insert()
-    #|> case do
-    #  {:ok, article} -> Ecto.Changeset.change(article, id: put_pass_idhash(Map.get(article, :id), user.id)) |> IO.inspect()
-    #end
-    |> IO.inspect
 
   end
 
-  def put_pass_idhash(article_id, user_id) do
-    hash_article_id = to_string(user_id) <> " " <> to_string(article_id)
+  def put_pass_hash_id(user_id, count_articles) do
+    hash_article_id = to_string(user_id) <> " " <> to_string(count_articles)
     Argon2.hash_pwd_salt(hash_article_id)
   end
 
-  #def idhash_change(%Article{} = article, %Article{id: id} = attrs) do
-  #  IO.inspect(id)
-  #  article
-  #  |> Article.changeset(id)
-  #  |> put_pass_idhash()
-  #  |> IO.inspect
-  #  |> Repo.update()
-  #end
   @doc """
   Updates a article.
 
@@ -131,9 +118,29 @@ defmodule NovelService.Novel do
 
   def inc_page_views(%Article{} = article) do
     {1, [%Article{views: views}]} =
-      from(a in Article, where: a.id == ^article.id, select: [:views])
+      from(a in Article, where: a.hash_id == ^article.hash_id, select: [:views])
       |> Repo.update_all(inc: [views: 1])
     put_in(article.views, views)
   end
+
+  def inc_have_articles(%Article{} = article) do
+    article =
+    article
+    |> Repo.preload(:user)
+    {1, [%User{have_articles: have_articles}]} =
+      from(u in User, where: u.id == ^article.user_id, select: [:have_articles])
+      |> Repo.update_all(inc: [have_articles: 1])
+    put_in(article.user.have_articles, have_articles)
+  end
+
+  #def dec_have_articles(%Article{} = article) do
+  #  article =
+  #  article
+  #  |> Repo.preload(:user)
+  #  {1, [%User{have_articles: have_articles}]} =
+  #    from(u in User, where: u.id == ^article.user_id, select: [:have_articles])
+  #    |> Repo.update_all(inc: [have_articles: -1])
+  #  put_in(article.user.have_articles, have_articles)
+  #end
 
 end
