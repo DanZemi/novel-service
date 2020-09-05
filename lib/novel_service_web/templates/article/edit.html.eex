@@ -2,4 +2,4 @@
 
 <%= render "form.html", Map.put(assigns, :action, Routes.article_path(@conn, :update, @article)) %>
 
-<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>
+<span><%= link "戻る", to: Routes.article_path(@conn, :index) %></span>

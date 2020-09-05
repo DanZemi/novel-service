@@ -29,4 +29,4 @@
 <% end %>
   </tbody>
 </table>
-<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>
+<span><%= link "戻る", to: Routes.article_path(@conn, :index) %></span>
