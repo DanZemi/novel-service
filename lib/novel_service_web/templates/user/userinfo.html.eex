@@ -1,0 +1,17 @@
+<div class="l-container">
+  <div class="main_search">
+<h1><%= @user.name %>さんのマイページ</h1>
+<h2>自己紹介</h2>
+<p><%= @user.bio %></p>
+<h2>外部リンク</h2>
+<p>
+  <%= if @user.user_link == nil do %>
+    リンクはありません。
+  <%= else %>
+    <%= link @user.user_link, to: @user.user_link %>
+  <% end %>
+</p>
+<h2><%= @user.name %>さんの作品</h2>
+<p><%= link "作品一覧", to: Routes.user_path(@conn, :show, @user) %></p>
+</div>
+</div>
