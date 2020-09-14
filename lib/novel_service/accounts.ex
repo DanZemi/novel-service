@@ -17,8 +17,10 @@ defmodule NovelService.Accounts do
       [%User{}, ...]
 
   """
-  def list_users do
+  def list_users(params) do
+    search_term = get_in(params, ["query"])
     User
+    |> search(search_term)
     |> Repo.all()
     |> Repo.preload(:articles)
   end
@@ -129,4 +131,12 @@ defmodule NovelService.Accounts do
   def current_user(conn) do
     Guardian.Plug.current_resource(conn)
   end
+
+  def search(query, search_term) do
+    wildcard_seach = "%#{search_term}%"
+
+    from user in query,
+    where: ilike(user.name, ^wildcard_seach)
+  end
+
 end
