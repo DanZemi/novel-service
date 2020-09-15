@@ -1,0 +1,19 @@
+<div class="l-container">
+  <div class="main_search">
+  <div class="searchkekka_box">
+    <%= for article <- @articles do %>
+      <div class="novel_h">
+        <%= link article.title, to: Routes.article_path(@conn, :summary, article) %>
+      </div>
+        <p>著者名:<%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user) %>
+          <br>
+          あらすじ: <%= "#{article.content |> String.slice(0..20)}..." %>
+          <br>
+          最終更新日: <%= article.updated_at %>
+        </p>
+        <hr class="line">
+    <% end %>
+  </div>
+
+  </div>
+</div>
