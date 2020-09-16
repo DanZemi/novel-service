@@ -25,16 +25,19 @@ defmodule NovelServiceWeb.Router do
   scope "/", NovelServiceWeb do
     pipe_through [:browser, :auth]
 
-    live "/", PageLive, :index
+    get "/", ArticleController, :home
     get "/signin", UserController, :new
     post "/signin", UserController, :create
     get "/login", SessionController, :new
     post "/login", SessionController, :login
     delete "/logout", SessionController, :logout
     get "/novels", ArticleController, :index
+    get "/novels/rank", ArticleController, :rank
     get "/novels/:id", ArticleController, :show
     get "/userlists", UserController, :index
     get "/userlists/:id", UserController, :show
+    get "/novels/summary/:id", ArticleController, :summary
+    get "/userlists/userinfo/:id", UserController, :userinfo
   end
 
   scope "/", NovelServiceWeb do
@@ -42,7 +45,8 @@ defmodule NovelServiceWeb.Router do
     resources "/users", UserController, except: [:new, :create, :index, :show]
     resources "/articles", ArticleController, except: [:index, :show]
     get "/mypage/:id", UserController, :mypage
-    get "/mynovelslist/:id", ArticleController, :mynovelslist
+    get "/mypage/myinfo/:id", UserController, :myinfo
+    get "/mynovellists/", ArticleController, :mynovellists
   end
 
   # Other scopes may use custom stacks.
