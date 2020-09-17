@@ -17,9 +17,10 @@ defmodule NovelService.Novel do
       [%Article{}, ...]
 
   """
-  def list_articles do
+  def list_articles(params) do
+    search_term = get_in(params, ["query"])
     Article
-    |> order_by(desc: :views)
+    |> search(search_term)
     |> Repo.all()
     |> Repo.preload(:user)
   end
@@ -142,5 +143,20 @@ defmodule NovelService.Novel do
   #    |> Repo.update_all(inc: [have_articles: -1])
   #  put_in(article.user.have_articles, have_articles)
   #end
+
+  def search(query, search_term) do
+    wildcard_seach = "%#{search_term}%"
+
+    from article in query,
+    where: ilike(article.title, ^wildcard_seach),
+    or_where: ilike(article.content, ^wildcard_seach)
+  end
+
+  def list_articles_rank do
+    Article
+    |> order_by(desc: :views)
+    |> Repo.all()
+    |> Repo.preload(:user)
+  end
 
 end
