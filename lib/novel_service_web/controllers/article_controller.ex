@@ -8,9 +8,19 @@ defmodule NovelServiceWeb.ArticleController do
 
   plug :is_authorized when action in [:edit, :update, :delete]
 
-  def index(conn, _params) do
-    articles = Novel.list_articles()
+  def index(conn, params) do
+    articles = Novel.list_articles(params)
     render(conn, "index.html", articles: articles)
+  end
+
+  def rank(conn, _params) do
+    articles = Novel.list_articles_rank()
+    render(conn, "rank.html", articles: articles)
+  end
+
+  def home(conn, params) do
+    articles = Novel.list_articles(params)
+    render(conn, "home.html", articles: articles)
   end
 
   def new(conn, _params) do
@@ -23,7 +33,7 @@ defmodule NovelServiceWeb.ArticleController do
       {:ok, article} ->
         Novel.inc_have_articles(article)
         conn
-        |> put_flash(:info, "Article created successfully.")
+        |> put_flash(:info, "投稿が完了しました。")
         |> redirect(to: Routes.article_path(conn, :show, article))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -39,9 +49,14 @@ defmodule NovelServiceWeb.ArticleController do
     render(conn, "show.html", article: article)
   end
 
-  def mynovelslist(conn, %{"id" => hash_id}) do
+  def mynovellists(conn, params) do
+    articles = Novel.list_articles(params)
+    render(conn, "mynovellists.html", articles: articles)
+  end
+
+  def summary(conn, %{"id" => hash_id}) do
     article = Novel.get_article!(hash_id)
-    render(conn, "mynovelslist.html", article: article)
+    render(conn, "summary.html", article: article)
   end
 
   def edit(conn, _) do
@@ -56,7 +71,7 @@ defmodule NovelServiceWeb.ArticleController do
     case Novel.update_article(article, article_params) do
       {:ok, article} ->
         conn
-        |> put_flash(:info, "Article updated successfully.")
+        |> put_flash(:info, "編集が完了しました。")
         |> redirect(to: Routes.article_path(conn, :show, article))
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -68,8 +83,8 @@ defmodule NovelServiceWeb.ArticleController do
     article = conn.assigns.article
     {:ok, _article} = Novel.delete_article(article)
     conn
-    |> put_flash(:info, "Article deleted successfully.")
-    |> redirect(to: Routes.article_path(conn, :index))
+    |> put_flash(:info, "削除が完了しました。")
+    |> redirect(to: Routes.user_path(conn, :mypage, Accounts.current_user(conn)))
   end
 
   defp is_authorized(conn, _) do
@@ -79,7 +94,7 @@ defmodule NovelServiceWeb.ArticleController do
       assign(conn, :article, article)
     else
       conn
-      |> put_flash(:error, "You can't modify that page")
+      |> put_flash(:error, "このページは修正できません。")
       |> redirect(to: Routes.page_path(conn, :index))
       |> halt()
     end
