@@ -30,7 +30,8 @@ defmodule NovelServiceWeb.SessionController do
   def logout(conn, _) do
     conn
     |> Guardian.Plug.sign_out()
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> put_flash(:info, "ログアウトしました。")
+    |> redirect(to: Routes.article_path(conn, :home))
   end
 
 end
