@@ -7,8 +7,8 @@ defmodule NovelServiceWeb.UserController do
 
   plug :is_authorized when action in [:edit, :update, :delete]
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
+  def index(conn, params) do
+    users = Accounts.list_users(params)
     render(conn, "index.html", users: users)
   end
 
@@ -21,9 +21,9 @@ defmodule NovelServiceWeb.UserController do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User created successfully.")
+        |> put_flash(:info, "アカウント登録が完了しました。")
         |> Guardian.Plug.sign_in(user)
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> redirect(to: Routes.article_path(conn, :home))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -32,7 +32,6 @@ defmodule NovelServiceWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    IO.inspect(user)
     render(conn, "show.html", user: user)
   end
 
@@ -46,8 +45,8 @@ defmodule NovelServiceWeb.UserController do
     case Accounts.update_user(user, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: Routes.user_path(conn, :show, user))
+        |> put_flash(:info, "ユーザー情報が更新されました。")
+        |> redirect(to: Routes.user_path(conn, :myinfo, user))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)
@@ -59,8 +58,8 @@ defmodule NovelServiceWeb.UserController do
 
     conn
     |> Guardian.Plug.sign_out()
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: Routes.page_path(conn, :index))
+    |> put_flash(:info, "退会が完了しました。")
+    |> redirect(to: Routes.article_path(conn, :home))
   end
 
   defp is_authorized(conn, _) do
@@ -70,14 +69,23 @@ defmodule NovelServiceWeb.UserController do
     else
       conn
       |> put_flash(:error, "You can't modify that page")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.article_path(conn, :home))
       |> halt()
     end
   end
 
   def mypage(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    IO.inspect(user)
     render(conn, "mypage.html", user: user)
+  end
+
+  def myinfo(conn, %{"id" => id}) do
+    user = Accounts.get_user!(id)
+    render(conn, "myinfo.html", user: user)
+  end
+
+  def userinfo(conn, %{"id" => id}) do
+    user = Accounts.get_user!(id)
+    render(conn, "userinfo.html", user: user)
   end
 end
