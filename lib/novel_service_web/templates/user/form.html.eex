@@ -1,28 +1,44 @@
+<div class="l-container">
+  <div class="main_search">
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>入力に誤りが<%= Enum.count(f.errors) %>つあります</p>
     </div>
   <% end %>
-
-  <%= label f, :name, "名前" %>
-  <p><6文字以上・半角英数字></p>
-  <%= text_input f, :name %>
+  <p>
+  <%= label f, :名前, [class: "user-control"] %>
+  <6文字以上・半角英数字></p>
+  <%= text_input f, :name, [class: "user-control"] %>
   <%= error_tag f, :name %>
 
-  <%= label f, :メール %>
-  <%= email_input f, :email %>
+  <p><%= label f, :メール %></p>
+  <p><%= email_input f, :email, [class: "user-control"] %></p>
   <%= error_tag f, :email %>
 
   <%= label f, :パスワード %>
-  <p><半角英数字それぞれ1文字以上含む8文字以上100文字以下の文字><例: password00></p>
-  <%= password_input f, :password %>
+  <半角英数字それぞれ1文字以上含む8文字以上100文字以下の文字><例: password00>
+  <p><%= password_input f, :password, [class: "user-control"] %></p>
   <%= error_tag f, :password %>
-
-  <%= label f, :確認用パスワード %>
-  <%= password_input f, :password_confirmation %>
+  <%= label f, :再確認パスワード %>
+  <p><%= password_input f, :password_confirmation, [class: "user-control"] %></p>
   <%= error_tag f, :password_confirmation %>
-  <div>
-    <%= submit "保存" %>
-  </div>
+  <br>
+  <%= label f, :自己紹介 %>
+  <%= unless current_user(@conn) do %>
+    <p>後から編集できます。</p>
+  <% end %>
+  <p><%= textarea f, :bio, [class: "bio-control"] %></p>
+  <%= error_tag f, :bio %>
+  <br>
+  <%= label f, :外部リンク %>
+  <%= unless current_user(@conn) do %>
+    <p>後から編集できます。</p>
+  <% end %>
+  <p><%= url_input f, :user_link, [class: "user-control"] %></p>
+  <%= error_tag f, :user_link %>
+  <p><%= submit "保存" %></p>
+
 <% end %>
+</div>
+</div>
