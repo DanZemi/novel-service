@@ -1,0 +1,14 @@
+<div class="l-container">
+  <div class="main_search">
+<h1>あらすじ</h1>
+<h2><%= @article.title %></h2>
+<p>著者: <%= @article.user.name %></p>
+<p><%= @article.content
+  |> String.slice(0..100)
+  |> String.split("\n", trim: false)
+  |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+  %></p>
+<p><%= link "この作品を読む", to: Routes.article_path(@conn, :show, @article) %></p>
+<p><%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index) %></p>
+</div>
+</div>
