@@ -1,12 +1,16 @@
+<div class="l-container">
+  <div class="main_search">
 <h1><%= @article.title %></h1>
   <p>
-    <strong>ユーザー: </strong>
+    <strong>著者: </strong>
     <%= @article.user.name %>
   </p>
   <p>
-    <%= @article.content %>
+    <%= @article.content
+    |> String.split("\n", trim: false)
+    |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br)) %>
   </p>
-  <p>
-    <%= @article.views %>
-  </p>
-<span><%= link "Back", to: Routes.article_path(@conn, :index) %></span>
+<span><%= link "あらすじへ戻る", to: Routes.article_path(@conn, :summary, @article) %></span>
+<span><%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index) %></span>
+</div>
+</div>
