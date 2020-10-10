@@ -1,18 +1,18 @@
+<div class="l-container">
+  <div class="main_search">
 <h2>ログイン画面</h2>
 <%= form_for @changeset, Routes.session_path(@conn, :login), fn f -> %>
-  <div class="form-group">
+  <div class="search_box2">
     <%= label f, :email, class: "control-label" %>
-    <%= text_input f, :email, class: "form-control" %>
+    <br>
+    <%= text_input f, :email, class: "login-control" %>
     <%= error_tag f, :email %>
-  </div>
 
-  <div class="form-group">
     <%= label f, :password, class: "control-label" %>
-    <%= password_input f, :password, class: "form-control" %>
+    <%= password_input f, :password, class: "login-control" %>
     <%= error_tag f, :password %>
   </div>
-
-  <div class="form-group">
-    <%= submit "ログイン", class: "btn btn-primary" %>
-  </div>
+    <%= submit "ログイン" %>
 <% end %>
+</div>
+</div>
