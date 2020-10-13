@@ -1,19 +1,28 @@
+<div class="l-container">
+  <div class="main_search">
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>入力に誤りがあります</p>
     </div>
   <% end %>
+  <div class="text_box">
 
-  <%= label f, :タイトル %>
-  <%= text_input f, :title %>
+  </div>
+  <p>
+  <%= label f, :タイトル %></p>
+  <%= text_input f, :title, [class: "title-control"] %>
   <%= error_tag f, :title %>
 
+<p>
   <%= label f, :本文 %>
+  </p>
   <%= textarea f, :content, [class: "form-control"] %>
   <%= error_tag f, :content %>
 
-  <div>
+    <p>
     <%= submit "保存" %>
-  </div>
+    </p>
 <% end %>
+</div>
+</div>
