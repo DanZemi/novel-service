@@ -1,24 +1,25 @@
-<h1>小説一覧</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ユーザー</th>
-      <th>タイトル</th>
-      <th>閲覧数</th>
-      <th>投稿日時</th>
-      <th>最終更新日</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for article <- @articles do %>
-    <tr>
-      <td><%= link article.user.name, to: Routes.user_path(@conn, :show, article.user) %></td>
-      <td><%= link article.title, to: Routes.article_path(@conn, :show, article) %></td>
-      <td><%= article.views %></td>
-      <td><%= article.inserted_at %></td>
-      <%= is_map(article.inserted_at) %>
-      <td><%= article.updated_at %></td>
+<div class="l-container">
+  <div class="main_search">
+<h1>小説検索</h1>
+<%= form_for @conn, Routes.article_path(@conn, :index), [method: :get], fn f -> %>
+  <div class="search_box">
+    <%= search_input f, :query, class: "search_size" %>
+    <%= submit "検索" %>
+  </div>
 <% end %>
-  </tbody>
-</table>
+  <div class="searchkekka_box">
+    <%= for article <- @articles do %>
+      <div class="novel_h">
+        <%= link article.title, to: Routes.article_path(@conn, :summary, article) %>
+      </div>
+        <p>著者名:<%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user) %>
+          あらすじ: <%= "#{article.content |> String.slice(0..20)}..." %>
+          <br>
+          最終更新日: <%= article.updated_at %>
+        </p>
+        <hr class="line">
+    <% end %>
+  </div>
+
+  </div>
+</div>
