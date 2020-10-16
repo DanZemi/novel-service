@@ -1,5 +1,8 @@
+<div class="l-container">
+  <div class="main_search">
 <h1>ユーザー登録</h1>
 
 <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create)) %>
 
-<span><%= link "戻る", to: Routes.user_path(@conn, :index) %></span>
+</div>
+</div>
