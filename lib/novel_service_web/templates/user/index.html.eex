@@ -1,20 +1,20 @@
-<h1>ユーザー一覧</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>ユーザー名</th>
-      <th>ID</th>
-      <th>登録日時</th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= link user.name, to: Routes.user_path(@conn, :show, user) %></td>
-      <td><%= user.id %></td>
-      <td><%= user.inserted_at %></td>
-    </tr>
+<div class="l-container">
+  <div class="main_search">
+<h1>ユーザー検索</h1>
+<%= form_for @conn, Routes.user_path(@conn, :index), [method: :get], fn f -> %>
+  <div class="search_box">
+  <%= search_input f, :query, class: "search_size" %>
+  <%= submit "検索" %>
+</div>
 <% end %>
-  </tbody>
-</table>
+<div class="searchkekka_box">
+<%= for user <- @users do %>
+    <div class="novel_h">
+      <p>ユーザー名: <%= link user.name, to: Routes.user_path(@conn, :userinfo, user) %>
+        <br>
+      登録日時: <%= user.inserted_at %>
+    </p>
+    <hr class="line">
+<% end %>
+</div>
+</div>
