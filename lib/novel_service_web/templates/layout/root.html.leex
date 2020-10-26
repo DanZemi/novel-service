@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,54 +10,59 @@
     <script defer phx-track-static type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= if current_user(@conn) do %>
-              <li><%= link "logout", to: Routes.session_path(@conn, :logout), method: :delete %></li>
-            <% end %>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <%= link to: Routes.page_path(@conn, :index), class: "phx-logo" do %>
-          <img src="<%= Routes.static_path(@conn, "/images/aha.png") %>" alt="Phoenix Framework Logo"/>
+    <div class="l-header">
+      <div class="p-header">
+        <div class="p-header_inner">
+          <h1 class="p-header_logo"><%= link to: Routes.article_path(@conn, :home)do %>
+            <img src="<%= Routes.static_path(@conn, "/images/aha.png") %>" alt="Phoenix Framework Logo"/>
+          <% end %>
+        </h1>
+          <div class="p-header_subnav">
+            <ul class="p-header_subnav_list">
+              <%= unless(current_user(@conn)) do %>
+              <li class="p-header_subnav_item"><%= link "ログイン", to: Routes.session_path(@conn, :new) %></li>
+              <%= else %>
+              <li class="p-header_subnav_item"><%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete %></li>
+              <% end %>
+              <%= unless current_user(@conn) do %>
+                <%= link to: Routes.session_path(@conn, :new) do %>
+                  <li class="p-header_subnav_item">マイページ</li>
+                <% end %>
+              <%= else %>
+                <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)) do %>
+                  <li class="p-header_subnav_item">マイページ</li>
+                <% end %>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-main-nav">
+      <ul class="p-main-nav_list">
+        <%= link to: Routes.article_path(@conn, :home) do %>
+          <li class="p-main-nav_item">ホーム</li>
         <% end %>
-      </section>
-    </header>
-    <div class="jumbotron">
-  <%= unless current_user(@conn) do %>
-    <p class="lead">
-      <%= link to: Routes.session_path(@conn, :new) do %>
-        <button type="button" class="btn btn-primary">
-          ログイン
-        </button>
-      <% end %>
-      <%= link to: Routes.user_path(@conn, :new) do %>
-        <button type="button" class="btn btn-primary">
-          ユーザー登録
-        </button>
-      <% end %>
-  <%= else %>
-      <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)) do %>
-        <button type="button" class="btn btn-primary">
-          マイページ
-        </button>
-      <% end %>
-  <% end %>
-  <%= link to: Routes.article_path(@conn, :index) do %>
-    <button type="button" class="btn btn-primary">
-      小説一覧
-    </button>
-  <% end %>
-  <%= link to: Routes.user_path(@conn, :index) do %>
-    <button type="button" class="btn btn-primary">
-      ユーザー一覧
-    </button>
-  <% end %>
-</div>
+        <%= unless current_user(@conn) do %>
+          <%= link to: Routes.session_path(@conn, :new) do %>
+            <li class="p-main-nav_item">マイページ</li>
+          <% end %>
+        <%= else %>
+          <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)) do %>
+            <li class="p-main-nav_item">マイページ</li>
+          <% end %>
+        <% end %>
+        <%= link to: Routes.article_path(@conn, :index) do %>
+          <li class="p-main-nav_item">小説検索</li>
+        <% end %>
+        <%= link to: Routes.user_path(@conn, :index) do %>
+          <li class="p-main-nav_item">ユーザー検索</li>
+        <% end %>
+        <%= link to: Routes.article_path(@conn, :rank) do %>
+          <li class="p-main-nav_item">ランキング</li>
+        <% end %>
+      </ul>
+    </div>
     <%= @inner_content %>
   </body>
 </html>
