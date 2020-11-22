@@ -8,6 +8,7 @@ defmodule NovelService.Novel do
   alias Argon2
   alias NovelService.Novel.Article
   alias NovelService.Accounts.User
+
   @doc """
   Returns the list of articles.
 
@@ -23,6 +24,7 @@ defmodule NovelService.Novel do
     |> search(search_term)
     |> Repo.all()
     |> Repo.preload(:user)
+  ##  |> Repo.paginate(page: 2, page_size: 5)
   end
 
   @doc """
@@ -157,6 +159,7 @@ defmodule NovelService.Novel do
     |> order_by(desc: :views)
     |> Repo.all()
     |> Repo.preload(:user)
+ ##   |> Repo.paginate(page: 2, page_size: 5)
   end
 
 end
