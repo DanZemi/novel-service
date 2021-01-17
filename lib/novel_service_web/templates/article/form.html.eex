@@ -21,7 +21,7 @@
   <%= error_tag f, :content %>
 
     <p>
-    <%= submit "保存" %>
+    <%= submit "投稿" %>
     </p>
 <% end %>
 </div>

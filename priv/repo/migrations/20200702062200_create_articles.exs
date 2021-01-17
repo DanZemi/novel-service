@@ -7,6 +7,7 @@ defmodule NovelService.Repo.Migrations.CreateArticles do
       add :title, :string, null: false
       add :content, :text
       add :views, :integer
+      
       add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps()
