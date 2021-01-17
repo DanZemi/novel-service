@@ -10,8 +10,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :novel_service, NovelServiceWeb.Endpoint,
-  http: [port: 4000],
-  check_origin: ["https://branchnovels.gigalixirapp.com/"],
+  url: [host: "branchnovels.gigalixirapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true 
 
