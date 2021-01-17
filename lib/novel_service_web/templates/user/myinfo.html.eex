@@ -7,7 +7,7 @@
 <p>
   <%= if @user.user_link == nil do %>
     リンクはありません。
-  <%= else %>
+  <% else %>
     <%= link @user.user_link, to: @user.user_link %>
   <% end %>
 </p>
