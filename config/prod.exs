@@ -11,8 +11,9 @@ use Mix.Config
 # before starting your production server.
 config :novel_service, NovelServiceWeb.Endpoint,
   http: [port: 4000],
-  url: [scheme: "https", host: "https://branchnovels.gigalixirapp.com", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  check_origin: ["https://branchnovels.gigalixirapp.com/"],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true 
 
 # Do not print debug messages in production
 config :logger, level: :info
