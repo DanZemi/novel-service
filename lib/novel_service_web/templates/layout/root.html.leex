@@ -21,7 +21,7 @@
             <ul class="p-header_subnav_list">
               <%= unless(current_user(@conn)) do %>
               <li class="p-header_subnav_item"><%= link "ログイン", to: Routes.session_path(@conn, :new) %></li>
-              <%= else %>
+              <% else %>
               <li class="p-header_subnav_item"><%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete %></li>
               <% end %>
               <%= unless current_user(@conn) do %>
@@ -47,7 +47,7 @@
           <%= link to: Routes.session_path(@conn, :new) do %>
             <li class="p-main-nav_item">マイページ</li>
           <% end %>
-        <%= else %>
+        <% else %>
           <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)) do %>
             <li class="p-main-nav_item">マイページ</li>
           <% end %>
