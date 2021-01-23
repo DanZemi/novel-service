@@ -21,4 +21,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 # novel-service
 
 
-2021/01/24 -> test discord!
+2021/01/24 -> test discord
