@@ -22,3 +22,67 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 
 2021/01/24 -> test discord
+
+<pre>
+├── novel_service
+│   ├── accounts
+│   │   ├── error_handler.ex
+│   │   ├── guradian.ex
+│   │   ├── pipeline.ex
+│   │   └── user.ex
+│   ├── accounts.ex
+│   ├── application.ex
+│   ├── novel
+│   │   └── article.ex
+│   ├── novel.ex
+│   └── repo.ex
+├── novel_service.ex
+├── novel_service_web
+│   ├── channels
+│   │   └── user_socket.ex
+│   ├── controllers
+│   │   ├── article_controller.ex
+│   │   ├── session_controller.ex
+│   │   └── user_controller.ex
+│   ├── endpoint.ex
+│   ├── gettext.ex
+│   ├── live
+│   │   ├── page_live.ex
+│   │   └── page_live.html.leex
+│   ├── router.ex
+│   ├── telemetry.ex
+│   ├── templates
+│   │   ├── article
+│   │   │   ├── edit.html.eex
+│   │   │   ├── form.html.eex
+│   │   │   ├── home.html.eex
+│   │   │   ├── index.html.eex
+│   │   │   ├── mynovellists.html.eex
+│   │   │   ├── new.html.eex
+│   │   │   ├── rank.html.eex
+│   │   │   ├── show.html.eex
+│   │   │   └── summary.html.eex
+│   │   ├── layout
+│   │   │   ├── app.html.eex
+│   │   │   ├── live.html.leex
+│   │   │   └── root.html.leex
+│   │   ├── session
+│   │   │   └── new.html.eex
+│   │   └── user
+│   │       ├── edit.html.eex
+│   │       ├── form.html.eex
+│   │       ├── index.html.eex
+│   │       ├── myinfo.html.eex
+│   │       ├── mypage.html.eex
+│   │       ├── new.html.eex
+│   │       ├── show.html.eex
+│   │       └── userinfo.html.eex
+│   └── views
+│       ├── article_view.ex
+│       ├── error_helpers.ex
+│       ├── error_view.ex
+│       ├── layout_view.ex
+│       ├── session_view.ex
+│       └── user_view.ex
+└── novel_service_web.ex
+</pre>
