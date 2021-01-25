@@ -24,23 +24,24 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 2021/01/24 -> test discord
 
 <pre>
+lib
 ├── novel_service
 │   ├── accounts
 │   │   ├── error_handler.ex
 │   │   ├── guradian.ex
 │   │   ├── pipeline.ex
-│   │   └── user.ex
-│   ├── accounts.ex
+│   │   └── user.ex -----------------------> userのschemaとかバリデーションとか
+│   ├── accounts.ex -----------------------> userのデータ処理(model)
 │   ├── application.ex
 │   ├── novel
-│   │   └── article.ex
-│   ├── novel.ex
+│   │   └── article.ex  -------------------> novelのschemaとかバリデーションとか
+│   ├── novel.ex --------------------------> novelのデータ処理(model)
 │   └── repo.ex
 ├── novel_service.ex
 ├── novel_service_web
 │   ├── channels
 │   │   └── user_socket.ex
-│   ├── controllers
+│   ├── controllers -----------------------> viewとmodelsの橋渡しの部分(controller)
 │   │   ├── article_controller.ex
 │   │   ├── session_controller.ex
 │   │   └── user_controller.ex
@@ -51,7 +52,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 │   │   └── page_live.html.leex
 │   ├── router.ex
 │   ├── telemetry.ex
-│   ├── templates
+│   ├── templates   ----------------------> 画面表示部分(view)
 │   │   ├── article
 │   │   │   ├── edit.html.eex
 │   │   │   ├── form.html.eex
@@ -77,7 +78,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 │   │       ├── new.html.eex
 │   │       ├── show.html.eex
 │   │       └── userinfo.html.eex
-│   └── views
+│   └── views ---------------------------> 大事かもしれんけどよくわかってない
 │       ├── article_view.ex
 │       ├── error_helpers.ex
 │       ├── error_view.ex
