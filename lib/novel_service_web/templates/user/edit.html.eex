@@ -7,5 +7,5 @@
     <span><%= link "戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)) %></span>
     <span><%= link "退会", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "本当によろしいですか？"] %></span>
 
-</div>
+  </div>
 </div>

@@ -1,18 +1,64 @@
-<div class="l-container">
-  <div class="main_search">
-<h1><%= @user.name %>さんの情報</h1>
-<h2>自己紹介</h2>
-<p><%= @user.bio %></p>
-<h2>外部リンク</h2>
-<p>
-  <%= if @user.user_link == nil do %>
-    リンクはありません。
-  <% else %>
-    <%= link @user.user_link, to: @user.user_link %>
-  <% end %>
-</p>
-<h2><%= @user.name %>さんの作品</h2>
-<p><%= link "作品一覧", to: Routes.user_path(@conn, :show, @user) %></p>
-<p><%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user) %></p>
-</div>
+<div class="container">
+  <h1><%= @user.name %></h1>
+  <div class="row">
+    <div class="col-3">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile"
+          role="tab" aria-controls="profile">
+          profile
+        </a>
+        <a class="list-group-item list-group-item-action" id="list-novels-list" data-toggle="list" href="#list-novels"
+          role="tab" aria-controls="novels">
+          novels
+        </a>
+        <a class="list-group-item list-group-item-action" id="list-link-list" data-toggle="list" href="#list-link"
+          role="tab" aria-controls="link">
+          link
+        </a>
+        <a class="list-group-item list-group-item-action" id="list-setting-list" data-toggle="list" href="#list-setting"
+          role="tab" aria-controls="setting">
+          setting
+        </a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+          <%= @user.bio %>
+        </div>
+        <div class="tab-pane fade" id="list-novels" role="tabpanel" aria-labelledby="list-novels-list">
+          <%= for article <- @user.articles do %>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= link article.title, to: Routes.article_path(@conn, :summary, article), class: "card-link text-info" %>
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                著者:<%= link @user.name, to: Routes.user_path(@conn, :userinfo, @user), class: "card-link text-info" %>
+              </h6>
+              <p class="card-text">
+                あらすじ: <%= "#{article.content |> String.slice(0..50)}..." %>
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">
+                最終更新日: <%= article.updated_at %>
+              </small>
+            </div>
+          </div>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="list-link" role="tabpanel" aria-labelledby="list-link-list">
+          <%= if @user.user_link == nil do %>
+          リンクはありません。
+          <% else %>
+          <%= link @user.user_link, to: @user.user_link %>
+          <% end %>
+        </div>
+        <div class="tab-pane fade" id="list-setting" role="tabpanel" aria-labelledby="list-setting-list">
+          <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user) %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -35,7 +35,7 @@ defmodule NovelServiceWeb.Router do
     get "/novels/rank", ArticleController, :rank
     get "/novels/:id", ArticleController, :show
     get "/userlists", UserController, :index
-    get "/userlists/:id", UserController, :show
+    #    get "/userlists/:id", UserController, :show
     get "/novels/summary/:id", ArticleController, :summary
     get "/userlists/userinfo/:id", UserController, :userinfo
   end

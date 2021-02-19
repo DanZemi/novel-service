@@ -1,44 +1,57 @@
-<div class="l-container">
-  <div class="main_search">
 <%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>入力に誤りが<%= Enum.count(f.errors) %>つあります</p>
-    </div>
-  <% end %>
-  <p>
-  <%= label f, :名前, [class: "user-control"] %>
-  <6文字以上・半角英数字></p>
-  <%= text_input f, :name, [class: "user-control"] %>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+  <p>入力に誤りが<%= Enum.count(f.errors) %>つあります</p>
+</div>
+<% end %>
+<form>
+  <div class="form-group">
+    <%= label f, :名前, [for: "userInputName"] %>
+    <%= text_input f, :name, [class: "form-control", id: "userInputName", placeholder: "naro1999"] %>
+    <small id="nameHelp" class="form-text text-muted">
+      6文字以上・英数字
+    </small>
+  </div>
   <%= error_tag f, :name %>
-
-  <p><%= label f, :メール %></p>
-  <p><%= email_input f, :email, [class: "user-control"] %></p>
+  <div class="form-group">
+    <%= label f, :メール, [for: "userInputEmail"] %>
+    <%= email_input f, :email, [class: "form-control", id: "userInputEmail", placeholder: "example@example.com"] %>
+  </div>
   <%= error_tag f, :email %>
-
-  <%= label f, :パスワード %>
-  <半角英数字それぞれ1文字以上含む8文字以上100文字以下の文字><例: password00>
-  <p><%= password_input f, :password, [class: "user-control"] %></p>
+  <div class="form-group">
+    <%= label f, :パスワード, [for: "userInputPassword"] %>
+    <%= password_input f, :password, [class: "form-control", id: "userInputPassword"] %>
+    <small id="passwordHelp" class="form-text text-muted">
+      半角英数字それぞれ１文字以上を含む８文字以上の文字
+    </small>
+  </div>
   <%= error_tag f, :password %>
-  <%= label f, :再確認パスワード %>
-  <p><%= password_input f, :password_confirmation, [class: "user-control"] %></p>
+  <div class="form-group">
+    <%= label f, :再確認パスワード, [for: "userInputRePassword"] %>
+    <%= password_input f, :password_confirmation, [class: "form-control", id: "userInputRePassword"] %>
+  </div>
   <%= error_tag f, :password_confirmation %>
-  <br>
-  <%= label f, :自己紹介 %>
-  <%= unless current_user(@conn) do %>
-    <p>後から編集できます。</p>
-  <% end %>
-  <p><%= textarea f, :bio, [class: "bio-control"] %></p>
+  <div class="form-group">
+    <%= label f, :自己紹介, [for: "userInputYourself"] %>
+    <%= textarea f, :bio, [class: "form-control", id: "userInputYourself", placeholder: "よろしくお願いします"] %>
+    <%= unless current_user(@conn) do %>
+    <small class="form-text text-muted">
+      後から編集できます。
+    </small>
+    <% end %>
+  </div>
   <%= error_tag f, :bio %>
-  <br>
-  <%= label f, :外部リンク %>
-  <%= unless current_user(@conn) do %>
-    <p>後から編集できます。</p>
-  <% end %>
-  <p><%= url_input f, :user_link, [class: "user-control"] %></p>
+  <div class="form-group">
+    <%= label f, :外部リンク, [for: "userInputLink"] %>
+    <%= url_input f, :user_link, [class: "form-control", id: "userInputLink"] %>
+    <%= unless current_user(@conn) do %>
+    <small class="form-text text-muted">
+      後から編集できます。
+    </small>
+    <% end %>
+  </div>
   <%= error_tag f, :user_link %>
-  <p><%= submit "保存" %></p>
+  <%= submit "保存", class: "btn btn-info" %>
+</form>
 
 <% end %>
-</div>
-</div>

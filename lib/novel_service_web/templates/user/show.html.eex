@@ -1,13 +1,23 @@
-<div class="l-container">
-  <div class="main_search">
-<h1><%= @user.name %>さんのマイページ</h1>
-<h2><%= @user.name %>さんの作品一覧</h2>
-  <div class="searchkekka_box">
-<%= for article <- @user.articles do %>
-    <p><%= link article.title, to: Routes.article_path(@conn, :summary, article) %></P>
-    最終更新日: <%= article.updated_at %>
-    <hr class="line">
-<% end %>
-<span><%= link "#{@user.name}さんのマイページへ", to: Routes.user_path(@conn, :userinfo, @user) %></span>
-</div>
-</div>
+    <h2><%= @user.name %>の作品一覧</h2>
+    <%= for article <- @user.articles do %>
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">
+          <%= link article.title, to: Routes.article_path(@conn, :summary, article), class: "card-line text-info" %>
+        </div>
+        <p class="card-text">
+          あらすじ: <%= "#{article.content |> String.slice(0..50)}" %>...
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          最終更新日: <%= article.updated_at %>
+        </small>
+      </div>
+    </div>
+    <% end %>
+    <%= unless current_user(@conn) do %>
+    <span><%= link "#{@user.name}さんのマイページへ", to: Routes.user_path(@conn, :myinfo, @user) %></span>
+    <% else %>
+    <span><%= link "#{@user.name}さんのマイページへ", to: Routes.user_path(@conn, :userinfo, @user) %></span>
+    <% end %>

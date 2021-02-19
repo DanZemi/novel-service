@@ -1,19 +1,22 @@
-<div class="l-container">
-  <div class="main_search">
-  <div class="searchkekka_box">
-    <%= for article <- @articles do %>
-      <div class="novel_h">
-        <%= link article.title, to: Routes.article_path(@conn, :summary, article) %>
-      </div>
-        <p>著者名:<%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user) %>
-          <br>
-          あらすじ: <%= "#{article.content |> String.slice(0..20)}..." %>
-          <br>
-          最終更新日: <%= article.updated_at %>
-        </p>
-        <hr class="line">
-    <% end %>
+<h1>ランキング</h1>
+<%= for article <- @articles do %>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= link article.title, to: Routes.article_path(@conn, :summary, article), class: "card-link text-info" %>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      著者名:<%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user), class: "card-link text-info" %>
+    </h6>
+    <p class="card-text">
+      あらすじ: <%= "#{article.content |> String.slice(0..50)}..." %>
+    </p>
   </div>
-
+  <div class="card-footer">
+    <small class="text-muted">
+      view: <%= article.views %>
+      最終更新日: <%= article.updated_at %>
+    </small>
   </div>
 </div>
+<% end %>

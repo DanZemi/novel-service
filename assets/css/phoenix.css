@@ -5,6 +5,7 @@
 /* Milligram v1.3.0 https://milligram.github.io
  * Copyright (c) 2017 CJ Patoilo Licensed under the MIT license
  */
+/*
 body {
   min-width: 1048px;
   min-height: 100%;
@@ -18,31 +19,41 @@ body {
   -webkit-font-smoothing: subpixel-antialiased;
   overflow-wrap: break-word;
   font-weight: 400;
+  padding-top: 100px;
 }
+*/
+body {
+  padding-top: 100px;
+}
+
+/*
 a:link {
-	color:#078D00;
-	text-decoration:none;
+  color: #078D00;
+  text-decoration: none;
 }
+
 a:visited {
-	color:#189B12;
-	text-decoration:none;
+  color: #189B12;
+  text-decoration: none;
 }
+
 a:hover {
-	text-decoration:underline;
+  text-decoration: underline;
 }
+
 a:active {
-	color:#666;
+  color: #666;
 }
 
 .l-header {
-    position: relative;
-    height: auto;
-    min-height: 1px;
-    margin-bottom: 15px;
+  position: relative;
+  height: auto;
+  min-height: 1px;
+  margin-bottom: 15px;
 }
 
 .p-header {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .p-header_inner {
@@ -56,12 +67,12 @@ a:active {
 }
 
 .p-header_logo {
-    margin-bottom: 0;
-    margin-right: 10px;
+  margin-bottom: 0;
+  margin-right: 10px;
 }
 
 .p-header_subnav {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .p-header_subnav_list {
@@ -132,14 +143,14 @@ a:active {
 }
 
 .c-panel_headline {
-    font-family: inherit;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1;
-    height: 18px;
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #0d6572;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1;
+  height: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #0d6572;
 }
 
 .c-panel_list-item {
@@ -161,14 +172,14 @@ a:active {
 }
 
 .l-footer {
-    position: relative;
-    height: auto;
-    min-height: 1px;
-    margin-bottom: 15px;
+  position: relative;
+  height: auto;
+  min-height: 1px;
+  margin-bottom: 15px;
 }
 
 .l-footer_list {
-  padding-left:0;
+  padding-left: 0;
   list-style-type: none;
   display: flex;
   margin-right: auto;
@@ -184,39 +195,39 @@ a:active {
 }
 
 .main_search {
-    float: left;
-    width: 740px;
-    margin: 0;
-    text-align: left;
+  float: left;
+  width: 740px;
+  margin: 0;
+  text-align: left;
 }
 
 .search_box {
-    width: 600px;
-    height: 40px;
-    margin: 0 0 10px 0;
-    padding:10px;
-    border-width: 1px;
-    border-style: solid;
-    background: #f6f6f6;
+  width: 600px;
+  height: 40px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  background: #f6f6f6;
 }
 
 .search_box2 {
-    width: 600px;
-    height: 120px;
-    margin: 0 0 10px 0;
-    padding:10px;
-    border-width: 1px;
-    border-style: solid;
-    background: #f6f6f6;
+  width: 600px;
+  height: 120px;
+  margin: 0 0 10px 0;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  background: #f6f6f6;
 }
 
 .search_box a {
   font-size: 120%;
-    width: 520px;
-    height: 100px;
-    padding: 7px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 520px;
+  height: 100px;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .search_size {
@@ -224,11 +235,12 @@ a:active {
   height: 30px;
 }
 
-.form-control{
+.form-control {
   width: 650px;
   height: 600px;
   font: size 18;
 }
+
 .title-control {
   width: 650px;
   height: 30px;
@@ -248,3 +260,4 @@ a:active {
   width: 350px;
   height: 100px;
 }
+*/

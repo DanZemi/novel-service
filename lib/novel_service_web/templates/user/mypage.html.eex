@@ -1,21 +1,29 @@
-<div class="l-container">
-  <div class="main_search">
-<h1><%= @user.name %>さんのマイページ</h1>
-<h2>小説投稿</h2>
-<div class="nav">
-  <ul>
-    <li><%= link "新規小説作成", to: Routes.article_path(@conn, :new) %></li>
-  </ul>
-
-<h2>小説編集</h2>
-  <ul>
-      <li><%= link "投稿済み小説", to: Routes.article_path(@conn, :mynovellists, @user.articles) %></li>
-  </ul>
-
-<h2>ユーザー設定</h2>
-  <ul>
-    <li><%= link "ユーザー情報", to: Routes.user_path(@conn, :myinfo, @user) %></li>
-  </ul>
-</div>
-</div>
+<div class="container">
+  <h1><%= @user.name %></h1>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">小説投稿</h5>
+          <%= link "新規小説作成", to: Routes.article_path(@conn, :new), class: "btn btn-info text-light" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">小説編集</h5>
+          <%= link "投稿済み小説", to: Routes.article_path(@conn, :mynovellists, @user.articles), class: "btn btn-info text-light" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">ユーザー設定</h5>
+          <%= link "ユーザー情報", to: Routes.user_path(@conn, :myinfo, @user), class: "btn btn-info text-light" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

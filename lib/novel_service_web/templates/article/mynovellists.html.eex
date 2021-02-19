@@ -1,16 +1,20 @@
-<div class="l-container">
-  <div class="main_search">
-<h1>投稿済み小説一覧</h1>
-<div class="searchkekka_box">
+    <h1>投稿済み小説一覧</h1>
     <%= for article <- @articles do %>
-          <%= if article.user.id == current_user(@conn).id do %>
-          <p><%= link article.title, to: Routes.article_path(@conn, :show, article) %></p>
-          <p>最終更新日: <%= article.updated_at %></p>
-          <%= link "編集", to: Routes.article_path(@conn, :edit, article) %>/ <%= link "削除", to: Routes.article_path(@conn, :delete, article), method: :delete, data: [confirm: "本当によろしいですか？"] %>
-          <% end %>
-        <hr class="line">
+    <%= if article.user.id == current_user(@conn).id do %>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= link article.title, to: Routes.article_path(@conn, :show, article), class: "card-line text-info" %>
+        </h5>
+        <%= link "編集", to: Routes.article_path(@conn, :edit, article), class: "btn btn-outline-success", role: "button" %>
+        <%= link "削除", to: Routes.article_path(@conn, :delete, article), method: :delete, data: [confirm: "本当によろしいですか？"], class: "btn btn-outline-danger text-danger my-2 my-sm-0" %>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          最終更新日: <%= article.updated_at %>
+        </small>
+      </div>
+    </div>
     <% end %>
-  </div>
-<span><%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)) %></span>
-</div>
-</div>
+    <% end %>
+    <%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "text-info" %>

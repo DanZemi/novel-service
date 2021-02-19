@@ -1,61 +1,27 @@
-<div class="l-container">
-  <div class="l-main">
-    <div class="c-panel">
-      <h2 class="c-panel_headline">最近の投稿</h2>
-      <div class="c-panel_list_item">
-        <div class="c-novel-item-info">
-          <%= for article <- @articles do %>
-          <div class="c-novel-item-title">
-            <%= link article.title, to:    Routes.article_path(@conn, :summary, article) %>
-            <div class="c-novel-item_subinfo">
-              <span class="c-novel-item_name">著者: <%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user) %></span>
-            <br>
-            あらすじ:
-              <span class="c-novel-item_sumarry"><%= "#{article.content |> String.slice(0..20)}..." %></span>
-            </div>
-            <hr class="separator">
-          </div>
-          <% end %>
-        </div>
+<h1>最近の投稿</h1>
+<div class="row">
+  <%= for article <- @articles do %>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5>
+          <%= link article.title, to: Routes.article_path(@conn, :summary, article), class: "card-link text-info" %>
+        </h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          著者:
+          <%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user), class: "card-link text-info" %>
+        </h6>
+        <p class="card-text">
+          あらすじ:
+          <%= "#{article.content |> String.slice(0..50)}..." %>
+        </p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">
+          最終更新日: <%= article.updated_at %>
+        </small>
       </div>
     </div>
   </div>
-<hr class="clear">
-<div class="l-sidebar">
-  <div class="c-panel">
-    <h2>ログイン</h2>
-    <p><%= link "ログイン", to: Routes.session_path(@conn, :new)%></p>
-    <%= unless current_user(@conn) do%>
-    <p><%= link "ユーザー登録", to: Routes.user_path(@conn, :new)%></p>
-    <% end %>
-  </div>
-  <div class="section-strong">
-    <h2>小説検索</h2>
-      <%= form_for @conn, Routes.article_path(@conn, :index), [method: :get], fn f -> %>
-        <p>
-          <%= search_input f, :query %>
-          <%= submit "検索" %>
-        </p>
-      <% end %>
-  </div>
-  <div class="section-strong">
-    <h2>ユーザー検索</h2>
-      <%= form_for @conn, Routes.user_path(@conn, :index), [method: :get], fn f -> %>
-        <p>
-          <%= search_input f, :query %>
-          <%= submit "検索" %>
-        </p>
-      <% end %>
-  </div>
-  <div class="session-emphasis">
-    <h2>リンク</h2>
-    <ul>
-      <li>新着活動報告一覧</li>
-      <li>利用規約</li>
-      <li>運営情報</li>
-      <li>掲示板</li>
-      <li>プライバシーポリシー</li>
-    </ul>
-  </div>
-</div>
+  <% end %>
 </div>

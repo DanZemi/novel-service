@@ -18,8 +18,8 @@ defmodule NovelServiceWeb.ArticleController do
     render(conn, "rank.html", articles: articles)
   end
 
-  def home(conn, params) do
-    articles = Novel.list_articles(params)
+  def home(conn, _params) do
+    articles = Novel.list_articles_date()
     render(conn, "home.html", articles: articles)
   end
 
@@ -31,7 +31,6 @@ defmodule NovelServiceWeb.ArticleController do
   def create(conn, %{"article" => article_params}) do
     case Novel.create_article(Guardian.Plug.current_resource(conn), article_params) do
       {:ok, article} ->
-        Novel.inc_have_articles(article)
         conn
         |> put_flash(:info, "投稿が完了しました。")
         |> redirect(to: Routes.article_path(conn, :show, article))
@@ -45,7 +44,8 @@ defmodule NovelServiceWeb.ArticleController do
     article =
       hash_id
       |> Novel.get_article!()
-      |> Novel.inc_page_views()
+      |> Novel.inc_page_views(Guardian.Plug.current_resource(conn))
+
     render(conn, "show.html", article: article)
   end
 
@@ -82,6 +82,7 @@ defmodule NovelServiceWeb.ArticleController do
   def delete(conn, _) do
     article = conn.assigns.article
     {:ok, _article} = Novel.delete_article(article)
+
     conn
     |> put_flash(:info, "削除が完了しました。")
     |> redirect(to: Routes.user_path(conn, :mypage, Accounts.current_user(conn)))
@@ -90,12 +91,13 @@ defmodule NovelServiceWeb.ArticleController do
   defp is_authorized(conn, _) do
     current_user = Accounts.current_user(conn)
     article = Novel.get_article!(conn.params["id"])
+
     if current_user.id == article.user.id do
       assign(conn, :article, article)
     else
       conn
       |> put_flash(:error, "このページは修正できません。")
-      |> redirect(to: Routes.page_path(conn, :index))
+      |> redirect(to: Routes.user_path(conn, :index))
       |> halt()
     end
   end

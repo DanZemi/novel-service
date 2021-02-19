@@ -20,11 +20,13 @@ defmodule NovelService.Novel do
   """
   def list_articles(params) do
     search_term = get_in(params, ["query"])
+
     Article
     |> search(search_term)
     |> Repo.all()
     |> Repo.preload(:user)
-  ##  |> Repo.paginate(page: 2, page_size: 5)
+
+    ##  |> Repo.paginate(page: 2, page_size: 5)
   end
 
   @doc """
@@ -46,6 +48,7 @@ defmodule NovelService.Novel do
     |> Repo.get!(id)
     |> Repo.preload(:user)
   end
+
   @doc """
   Creates a article.
 
@@ -64,7 +67,6 @@ defmodule NovelService.Novel do
     |> Ecto.Changeset.put_change(:user_id, user.id)
     |> Ecto.Changeset.put_change(:hash_id, put_pass_hash_id(user.id, user.have_articles))
     |> Repo.insert()
-
   end
 
   def put_pass_hash_id(user_id, count_articles) do
@@ -119,24 +121,48 @@ defmodule NovelService.Novel do
     Article.changeset(article, attrs)
   end
 
-  def inc_page_views(%Article{} = article) do
+  def inc_page_views(%Article{} = article, nil) do
     {1, [%Article{views: views}]} =
-      from(a in Article, where: a.hash_id == ^article.hash_id, select: [:views])
-      |> Repo.update_all(inc: [views: 1])
+      from(a in Article,
+        where:
+          a.hash_id ==
+            ^article.hash_id,
+        select: [:views]
+      )
+      |> Repo.update_all(inc: [views: 0])
+
     put_in(article.views, views)
+  end
+
+  def inc_page_views(%Article{} = article, %User{} = user) do
+    if user.id != article.user_id do
+      {1, [%Article{views: views}]} =
+        from(a in Article, where: a.hash_id == ^article.hash_id, select: [:views])
+        |> Repo.update_all(inc: [views: 1])
+
+      put_in(article.views, views)
+    else
+      {1, [%Article{views: views}]} =
+        from(a in Article, where: a.hash_id == ^article.hash_id, select: [:views])
+        |> Repo.update_all(inc: [views: 0])
+
+      put_in(article.views, views)
+    end
   end
 
   def inc_have_articles(%Article{} = article) do
     article =
-    article
-    |> Repo.preload(:user)
+      article
+      |> Repo.preload(:user)
+
     {1, [%User{have_articles: have_articles}]} =
       from(u in User, where: u.id == ^article.user_id, select: [:have_articles])
       |> Repo.update_all(inc: [have_articles: 1])
+
     put_in(article.user.have_articles, have_articles)
   end
 
-  #def dec_have_articles(%Article{} = article) do
+  # def dec_have_articles(%Article{} = article) do
   #  article =
   #  article
   #  |> Repo.preload(:user)
@@ -144,14 +170,14 @@ defmodule NovelService.Novel do
   #    from(u in User, where: u.id == ^article.user_id, select: [:have_articles])
   #    |> Repo.update_all(inc: [have_articles: -1])
   #  put_in(article.user.have_articles, have_articles)
-  #end
+  # end
 
   def search(query, search_term) do
     wildcard_seach = "%#{search_term}%"
 
     from article in query,
-    where: ilike(article.title, ^wildcard_seach),
-    or_where: ilike(article.content, ^wildcard_seach)
+      where: ilike(article.title, ^wildcard_seach),
+      or_where: ilike(article.content, ^wildcard_seach)
   end
 
   def list_articles_rank do
@@ -159,7 +185,14 @@ defmodule NovelService.Novel do
     |> order_by(desc: :views)
     |> Repo.all()
     |> Repo.preload(:user)
- ##   |> Repo.paginate(page: 2, page_size: 5)
+
+    ##   |> Repo.paginate(page: 2, page_size: 5)
   end
 
+  def list_articles_date do
+    Article
+    |> order_by(desc: :updated_at)
+    |> Repo.all()
+    |> Repo.preload(:user)
+  end
 end

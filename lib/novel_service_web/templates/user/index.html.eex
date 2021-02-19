@@ -1,20 +1,23 @@
-<div class="l-container">
-  <div class="main_search">
 <h1>ユーザー検索</h1>
-<%= form_for @conn, Routes.user_path(@conn, :index), [method: :get], fn f -> %>
-  <div class="search_box">
-  <%= search_input f, :query, class: "search_size" %>
-  <%= submit "検索" %>
-</div>
-<% end %>
-<div class="searchkekka_box">
+<form class="form-group">
+  <%= form_for @conn, Routes.user_path(@conn, :index), [method: :get], fn f -> %>
+  <%= search_input f, :query, class: "form-control mr-sm-2", placeholder: "Search" %>
+  <%= submit "検索", class: "btn btn-info my-2 my-sm-0" %>
+  <% end %>
+</form>
 <%= for user <- @users do %>
-    <div class="novel_h">
-      <p>ユーザー名: <%= link user.name, to: Routes.user_path(@conn, :userinfo, user) %>
-        <br>
+<div class="card">
+  <div class="card-header">
+    ID: <%= user.id %>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">ユーザー名:
+      <%= link user.name, to: Routes.user_path(@conn, :userinfo, user), class: "card-link text-info" %>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      投稿数:<%= user.have_articles %>
       登録日時: <%= user.inserted_at %>
-    </p>
-    <hr class="line">
+    </h6>
+  </div>
+</div>
 <% end %>
-</div>
-</div>

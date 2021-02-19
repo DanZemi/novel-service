@@ -1,16 +1,20 @@
-<div class="l-container">
-  <div class="main_search">
-<h1><%= @article.title %></h1>
-  <p>
-    <strong>著者: </strong>
-    <%= @article.user.name %>
-  </p>
-  <p>
-    <%= @article.content
+<div class="card border-info mb-3">
+  <div class="card-header">
+    <%= @article.title %>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      <%= @article.content
     |> String.split("\n", trim: false)
     |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br)) %>
-  </p>
+    </p>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted">
+      著者:
+      <%= @article.user.name %>
+    </small>
+  </div>
+</div>
 <span><%= link "あらすじへ戻る", to: Routes.article_path(@conn, :summary, @article) %></span>
 <span><%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index) %></span>
-</div>
-</div>
