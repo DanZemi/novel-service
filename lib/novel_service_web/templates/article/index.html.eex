@@ -12,7 +12,12 @@
       <%= link article.title, to: Routes.article_path(@conn, :summary, article), class: "card-link text-info" %>
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">
-      著者:<%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user), class: "card-link text-info" %>
+      著者:
+      <%= if @current_user != nil and @current_user.id == article.user.id do %>
+      <%= link article.user.name, to: Routes.user_path(@conn, :myinfo, article.user), class: "card-link text-info" %>
+      <% else %>
+      <%= link article.user.name, to: Routes.user_path(@conn, :userinfo, article.user), class: "card-link text-info" %>
+      <% end %>
     </h6>
     <p class="card-text">
       あらすじ: <%= "#{article.content |> String.slice(0..50)}..." %>

@@ -16,6 +16,7 @@ defmodule NovelServiceWeb.Router do
 
   pipeline :auth do
     plug NovelService.Accounts.Pipeline
+    plug NovelService.Accounts.CurrentUser
   end
 
   pipeline :ensure_auth do

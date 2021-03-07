@@ -1,4 +1,4 @@
-<div class="card border-info mb-3">
+<div class="card mb-3">
   <div class="card-header">
     <%= @article.title %>
   </div>
@@ -16,5 +16,5 @@
     </small>
   </div>
 </div>
-<span><%= link "あらすじへ戻る", to: Routes.article_path(@conn, :summary, @article) %></span>
-<span><%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index) %></span>
+<%= link "あらすじへ戻る", to: Routes.article_path(@conn, :summary, @article), class: "btn btn-info text-light btn-sm mr-5" %>
+<%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index), class: "btn btn-info text-light btn-sm" %>

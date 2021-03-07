@@ -57,8 +57,10 @@
         </div>
         <div class="tab-pane fade" id="list-setting" role="tabpanel" aria-labelledby="list-setting-list">
           <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user) %>
+          <p>
+            <%= link "退会", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "本当によろしいですか？"] %>
+          </p>
         </div>
       </div>
     </div>
   </div>
-</div>

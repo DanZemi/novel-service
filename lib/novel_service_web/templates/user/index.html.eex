@@ -12,7 +12,12 @@
   </div>
   <div class="card-body">
     <h5 class="card-title">ユーザー名:
+      <%= if @current_user != nil and @current_user
+      .id == user.id do %>
+      <%= link user.name, to: Routes.user_path(@conn, :myinfo, user), class: "card-link text-info" %>
+      <% else %>
       <%= link user.name, to: Routes.user_path(@conn, :userinfo, user), class: "card-link text-info" %>
+      <% end %>
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">
       投稿数:<%= user.have_articles %>

@@ -5,7 +5,7 @@ defmodule NovelServiceWeb.UserController do
   alias NovelService.Accounts.User
   alias NovelService.Accounts.Guardian
 
-  plug :is_authorized when action in [:edit, :update, :delete]
+  plug :is_authorized when action in [:edit, :update, :delete, :editpassword]
 
   def index(conn, params) do
     users = Accounts.list_users(params)
@@ -42,6 +42,7 @@ defmodule NovelServiceWeb.UserController do
 
   def update(conn, %{"user" => user_params}) do
     user = conn.assigns.current_user
+
     case Accounts.update_user(user, user_params) do
       {:ok, user} ->
         conn
@@ -64,6 +65,7 @@ defmodule NovelServiceWeb.UserController do
 
   defp is_authorized(conn, _) do
     current_user = Accounts.current_user(conn)
+
     if current_user.id == String.to_integer(conn.params["id"]) do
       assign(conn, :current_user, current_user)
     else

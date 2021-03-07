@@ -16,7 +16,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <%= link to: Routes.article_path(@conn, :home), class: "navbar-brand" do %>
-    <img src="<%= Routes.static_path(@conn, "/images/aha.png") %>" widith="30" height="30"
+    <img src="<%= Routes.static_path(@conn, "/images/branchN.png") %>" widith="30" height="30"
       alt="Phoenix Framework Logo" />
     <% end %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerRight"
@@ -30,15 +30,15 @@
           ホーム<span class="sr-only">(current)</span>
           <% end %>
         </li>
-        <%= unless current_user(@conn) do %>
+        <%= if @current_user do %>
         <li class="nav-item">
-          <%= link to: Routes.session_path(@conn, :new), class: "nav-link" do %>
+          <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "nav-link" do %>
           マイページ
           <% end %>
         </li>
         <% else %>
         <li class="nav-item">
-          <%= link to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "nav-link" do %>
+          <%= link to: Routes.session_path(@conn, :new), class: "nav-link" do %>
           マイページ
           <% end %>
         </li>
@@ -66,11 +66,11 @@
         <% end %>
       </form>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <%= unless current_user(@conn) do %>
-        <li class="nav-item"><%= link "ログイン", to: Routes.session_path(@conn, :new), class: "nav-link" %></li>
+        <%= if @current_user do %>
+        <%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete, class: "nav-link" %></li>
         <% else %>
         <li class="nav-item">
-          <%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete, class: "nav-link" %></li>
+        <li class="nav-item"><%= link "ログイン", to: Routes.session_path(@conn, :new), class: "nav-link" %></li>
         <% end %>
         <%= unless current_user(@conn) do %>
         <li class="nav-item">
