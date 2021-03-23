@@ -11,6 +11,7 @@ defmodule NovelService.Novel do
 
   @doc """
   Returns the list of articles.
+  全ての小説をデータベースから持ってくる
 
   ## Examples
 
@@ -25,12 +26,11 @@ defmodule NovelService.Novel do
     |> search(search_term)
     |> Repo.all()
     |> Repo.preload(:user)
-
-    ##  |> Repo.paginate(page: 2, page_size: 5)
   end
 
   @doc """
   Gets a single article.
+  一つの小説をデータベースから取得
 
   Raises `Ecto.NoResultsError` if the Article does not exist.
 
@@ -51,6 +51,7 @@ defmodule NovelService.Novel do
 
   @doc """
   Creates a article.
+  小説を作る
 
   ## Examples
 
@@ -76,6 +77,7 @@ defmodule NovelService.Novel do
 
   @doc """
   Updates a article.
+  小説を更新する
 
   ## Examples
 
@@ -94,7 +96,7 @@ defmodule NovelService.Novel do
 
   @doc """
   Deletes a article.
-
+  小説をデータベースから削除する
   ## Examples
 
       iex> delete_article(article)
