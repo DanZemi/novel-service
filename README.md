@@ -1,28 +1,26 @@
-# NovelService
+# Branch-Novelsとは？
+分岐機能や統合機能を搭載したオープンソース型小説投稿サービスです。
 
-To start your Phoenix server:
+## 背景・概要
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
+近年、小説や漫画の二次創作における著作権の問題がグレー化されています。<br>
+そこで、このサービス内ではサービスに投稿される一次創作作品の二次創作を全面的に許可することで、本家
+とは違う展開のストーリーを書いたり(分岐)、キャラクターは同じで全く違うス
+トーリーを書いたり(パラレルワールド)することができます。
+<br>
+![image](https://user-images.githubusercontent.com/50546239/113131585-5ec9e880-9258-11eb-8591-a5c4b0eb6db0.png)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
-# novel-service
+## 今後の課題
+- 分岐機能
+- 統合機能
+- Oauth
 
 
-2021/01/24 -> test discord
+# BranchNovels URL
+[Here!](https://branchnovels.gigalixirapp.com/)
 
+
+#### 自分用コード把握
 <pre>
 lib
 ├── novel_service
@@ -52,7 +50,7 @@ lib
 │   │   └── page_live.html.leex
 │   ├── router.ex
 │   ├── telemetry.ex
-│   ├── templates   ----------------------> 画面表示部分(view)
+│   ├── templates   ----------------------> 画面表示部分
 │   │   ├── article
 │   │   │   ├── edit.html.eex
 │   │   │   ├── form.html.eex
@@ -78,7 +76,7 @@ lib
 │   │       ├── new.html.eex
 │   │       ├── show.html.eex
 │   │       └── userinfo.html.eex
-│   └── views ---------------------------> 大事かもしれんけどよくわかってない
+│   └── views ---------------------------> ブラウザやAPIクライアントに送信されるレスポンスの本文をレンダリングする
 │       ├── article_view.ex
 │       ├── error_helpers.ex
 │       ├── error_view.ex
