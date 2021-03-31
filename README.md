@@ -16,9 +16,11 @@
 - Oauth
 
 
-# novel-service
-2021/01/24 -> test discord
+# BranchNovels URL
+[Here!](https://branchnovels.gigalixirapp.com/)
 
+
+#### 自分用コード把握
 <pre>
 lib
 ├── novel_service
