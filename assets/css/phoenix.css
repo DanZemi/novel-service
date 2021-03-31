@@ -26,6 +26,10 @@ body {
   padding-top: 100px;
 }
 
+main>.container {
+  padding-top: 60px;
+}
+
 /*
 a:link {
   color: #078D00;

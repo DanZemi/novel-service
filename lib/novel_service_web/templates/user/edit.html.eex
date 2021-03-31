@@ -2,4 +2,4 @@
 
     <%= render "edituserform.html", Map.put(assigns, :action, Routes.user_path(@conn, :update, @user)) %>
 
-    <span><%= link "戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)) %></span>
+    <%= link "戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "btn btn-outline-success btn-sm" %>

@@ -2,4 +2,4 @@
 
     <%= render "form.html", Map.put(assigns, :action, Routes.article_path(@conn, :update, @article)) %>
 
-    <span><%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)) %></span>
+    <%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "btn btn-outline-success btn-sm" %>

@@ -19,6 +19,10 @@
           role="tab" aria-controls="setting">
           setting
         </a>
+        <a class="list-group-item list-group-item-action" id="list-delete-list" data-toggle="list" href="#delet-account"
+          role="tab" aria-controls="account">
+          delete
+        </a>
       </div>
     </div>
     <div class="col-8">
@@ -52,15 +56,16 @@
           <%= if @user.user_link == nil do %>
           リンクはありません。
           <% else %>
-          <%= link @user.user_link, to: @user.user_link %>
+          <%= link @user.user_link, to: @user.user_link, class: "btn btn-outline-success btn-sm" %>
           <% end %>
         </div>
         <div class="tab-pane fade" id="list-setting" role="tabpanel" aria-labelledby="list-setting-list">
-          <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user) %>
-          <p>
-            <%= link "退会", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "本当によろしいですか？"] %>
-          </p>
+          <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user), class: "btn btn-outline-success btn-sm" %>
+        </div>
+        <div class="tab-pane fade" id="delet-account" role="tabpanel" aria-labelledby="list-delete-list">
+          <%= link "退会", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "本当によろしいですか？"],class: "btn btn-outline-danger btn-sm" %>
         </div>
       </div>
     </div>
   </div>
+</div>

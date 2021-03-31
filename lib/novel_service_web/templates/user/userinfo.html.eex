@@ -48,7 +48,7 @@
           <%= if @user.user_link == nil do %>
           リンクはありません。
           <% else %>
-          <%= link @user.user_link, to: @user.user_link %>
+          <%= link @user.user_link, to: @user.user_link, class: "btn btn-outline-success btn-sm" %>
           <% end %>
         </div>
       </div>

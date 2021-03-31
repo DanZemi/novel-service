@@ -8,13 +8,15 @@
       <div class="form-group">
         <%= label f, :タイトル %>
         <%= text_input f, :title, [class: "form-control", type: "text"] %>
-        <%= error_tag f, :title %>
       </div>
+      <%= error_tag f, :title %>
       <div class="form-group">
         <%= label f, :本文, for: "form-textarea0" %>
         <%= textarea f, :content, [class: "form-control", id: "form-textarea0", rows: "20"] %>
-        <%= error_tag f, :content %>
       </div>
-      <%= submit "投稿", class: "btn btn-info" %>
+      <%= error_tag f, :content %>
+      <div class="text-center">
+        <%= submit "投稿", class: "btn btn-info btn-lg" %>
+      </div>
     </form>
     <% end %>

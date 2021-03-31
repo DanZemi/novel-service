@@ -67,9 +67,9 @@
       </form>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <%= if @current_user do %>
-        <%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete, class: "nav-link" %></li>
-        <% else %>
         <li class="nav-item">
+          <%= link "ログアウト", to: Routes.session_path(@conn, :logout), method: :delete, class: "nav-link" %></li>
+        <% else %>
         <li class="nav-item"><%= link "ログイン", to: Routes.session_path(@conn, :new), class: "nav-link" %></li>
         <% end %>
         <%= unless current_user(@conn) do %>
@@ -89,6 +89,11 @@
     </div>
   </nav>
   <%= @inner_content %>
+  <footer class="footer mt-auto py-3">
+    <div class="container">
+      <span class="text-muted">フッターのコンテンツをここに置きます．</span>
+    </div>
+  </footer>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
   </script>

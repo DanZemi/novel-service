@@ -17,4 +17,4 @@
     </div>
     <% end %>
     <% end %>
-    <%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "text-info" %>
+    <%= link "マイページへ戻る", to: Routes.user_path(@conn, :mypage, current_user(@conn)), class: "btn btn-outline-success btn-sm" %>

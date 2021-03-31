@@ -33,7 +33,9 @@
         <% end %>
     </div>
     <%= error_tag f, :user_link %>
-    <%= submit "保存", class: "btn btn-info" %>
+    <div class="text-center">
+        <%= submit "保存", class: "btn btn-info" %>
+    </div>
 </form>
 
 <% end %>

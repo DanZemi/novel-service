@@ -17,4 +17,4 @@
     </small>
   </div>
 </div>
-<%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index) %>
+<%= link "小説一覧へ戻る", to: Routes.article_path(@conn, :index), class: "btn btn-outline-success btn-sm" %>
