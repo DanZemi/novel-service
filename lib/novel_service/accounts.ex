@@ -8,6 +8,7 @@ defmodule NovelService.Accounts do
   alias NovelService.Accounts.User
   alias Argon2
   alias NovelService.Accounts.Guardian
+
   @doc """
   Returns the list of users.
 
@@ -19,6 +20,7 @@ defmodule NovelService.Accounts do
   """
   def list_users(params) do
     search_term = get_in(params, ["query"])
+
     User
     |> search(search_term)
     |> Repo.all()
@@ -44,6 +46,7 @@ defmodule NovelService.Accounts do
     |> Repo.get!(id)
     |> Repo.preload(:articles)
   end
+
   @doc """
   Creates a user.
 
@@ -115,10 +118,12 @@ defmodule NovelService.Accounts do
 
   def authenticate_user(email, plain_text_password) do
     query = from u in User, where: u.email == ^email
+
     case Repo.one(query) do
       nil ->
         Argon2.no_user_verify()
         {:error, :invalid_credentials}
+
       user ->
         if Argon2.verify_pass(plain_text_password, user.password) do
           {:ok, user}
@@ -132,11 +137,18 @@ defmodule NovelService.Accounts do
     Guardian.Plug.current_resource(conn)
   end
 
+  def current_viewed(conn, id) do
+    if current_user(conn).id == id do
+      true
+    else
+      false
+    end
+  end
+
   def search(query, search_term) do
     wildcard_seach = "%#{search_term}%"
 
     from user in query,
-    where: ilike(user.name, ^wildcard_seach)
+      where: ilike(user.name, ^wildcard_seach)
   end
-
 end

@@ -70,7 +70,7 @@ defmodule NovelServiceWeb.UserController do
       assign(conn, :current_user, current_user)
     else
       conn
-      |> put_flash(:error, "You can't modify that page")
+      |> put_flash(:error, "そのページを修正することはできません")
       |> redirect(to: Routes.article_path(conn, :home))
       |> halt()
     end
@@ -78,12 +78,28 @@ defmodule NovelServiceWeb.UserController do
 
   def mypage(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "mypage.html", user: user)
+
+    if Accounts.current_viewed(conn, user.id) do
+      render(conn, "mypage.html", user: user)
+    else
+      conn
+      |> put_flash(:error, "そのページを修正することはできません")
+      |> redirect(to: Routes.article_path(conn, :home))
+      |> halt()
+    end
   end
 
   def myinfo(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "myinfo.html", user: user)
+
+    if Accounts.current_viewed(conn, user.id) do
+      render(conn, "myinfo.html", user: user)
+    else
+      conn
+      |> put_flash(:error, "そのページを修正することはできません")
+      |> redirect(to: Routes.article_path(conn, :home))
+      |> halt()
+    end
   end
 
   def userinfo(conn, %{"id" => id}) do
