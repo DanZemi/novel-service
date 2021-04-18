@@ -19,6 +19,6 @@ defmodule NovelService.Novel.Article do
   def changeset(article, attrs) do
     article
     |> cast(attrs, [:title, :content])
-    |> validate_required([:title, :content])
+    |> validate_required([:title, :content], message: "空白になっています")
   end
 end
