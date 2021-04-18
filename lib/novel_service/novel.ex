@@ -52,7 +52,7 @@ defmodule NovelService.Novel do
 
   @doc """
   Creates a article.
-  小説を作る
+  小説を作成
 
   ## Examples
 
@@ -71,6 +71,7 @@ defmodule NovelService.Novel do
     |> Repo.insert()
   end
 
+  # 小説の番号をハッシュ化
   def put_pass_hash_id(user_id, count_articles) do
     hash_article_id = to_string(user_id) <> " " <> to_string(count_articles)
     Argon2.hash_pwd_salt(hash_article_id)
@@ -124,6 +125,7 @@ defmodule NovelService.Novel do
     Article.changeset(article, attrs)
   end
 
+  # 小説が閲覧される毎に1増加させる(ログインしていない場合)
   def inc_page_views(%Article{} = article, nil) do
     {1, [%Article{views: views}]} =
       from(a in Article,
@@ -137,6 +139,7 @@ defmodule NovelService.Novel do
     put_in(article.views, views)
   end
 
+  # 小説が閲覧される毎に1増加させる(ログインしている場合)
   def inc_page_views(%Article{} = article, %User{} = user) do
     if user.id != article.user_id do
       {1, [%Article{views: views}]} =
@@ -153,6 +156,7 @@ defmodule NovelService.Novel do
     end
   end
 
+  # 今までに何冊の小説を投稿しているか
   def inc_have_articles(%Article{} = article) do
     article =
       article
@@ -165,16 +169,7 @@ defmodule NovelService.Novel do
     put_in(article.user.have_articles, have_articles)
   end
 
-  # def dec_have_articles(%Article{} = article) do
-  #  article =
-  #  article
-  #  |> Repo.preload(:user)
-  #  {1, [%User{have_articles: have_articles}]} =
-  #    from(u in User, where: u.id == ^article.user_id, select: [:have_articles])
-  #    |> Repo.update_all(inc: [have_articles: -1])
-  #  put_in(article.user.have_articles, have_articles)
-  # end
-
+  # 小説検索機能
   def search(query, search_term) do
     wildcard_seach = "%#{search_term}%"
 
@@ -183,15 +178,15 @@ defmodule NovelService.Novel do
       or_where: ilike(article.content, ^wildcard_seach)
   end
 
+  # ランキング順
   def list_articles_rank do
     Article
     |> order_by(desc: :views)
     |> Repo.all()
     |> Repo.preload(:user)
-
-    ##   |> Repo.paginate(page: 2, page_size: 5)
   end
 
+  # 日付順
   def list_articles_date do
     Article
     |> order_by(desc: :updated_at)

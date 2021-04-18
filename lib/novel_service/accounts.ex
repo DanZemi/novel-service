@@ -18,6 +18,7 @@ defmodule NovelService.Accounts do
       [%User{}, ...]
 
   """
+  # ユーザー一覧
   def list_users(params) do
     search_term = get_in(params, ["query"])
 
@@ -41,6 +42,7 @@ defmodule NovelService.Accounts do
       ** (Ecto.NoResultsError)
 
   """
+  # 特定のユーザー
   def get_user!(id) do
     User
     |> Repo.get!(id)
@@ -59,6 +61,7 @@ defmodule NovelService.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  # ユーザー登録
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
@@ -77,6 +80,7 @@ defmodule NovelService.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  # ユーザー更新
   def update_user(%User{} = user, attrs) do
     user
     |> User.changeset(attrs)
@@ -95,6 +99,7 @@ defmodule NovelService.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
+  # ユーザー削除
   def delete_user(%User{} = user) do
     Repo.delete(user)
   end
@@ -112,10 +117,12 @@ defmodule NovelService.Accounts do
     User.changeset(user, attrs)
   end
 
+  # ハッシュ化したパスワードと平パスワードのチェック
   def password_check(plain_text_password, hash_password) do
     Argon2.verify_pass(plain_text_password, hash_password)
   end
 
+  #
   def authenticate_user(email, plain_text_password) do
     query = from u in User, where: u.email == ^email
 
@@ -133,11 +140,13 @@ defmodule NovelService.Accounts do
     end
   end
 
+  # 現在ログインしているユーザー
   def current_user(conn) do
     Guardian.Plug.current_resource(conn)
   end
 
-  def current_viewed(conn, id) do
+  # そのページを閲覧できるユーザーかどうか
+  def current_viewed?(conn, id) do
     if current_user(conn).id == id do
       true
     else
