@@ -28,6 +28,7 @@ defmodule NovelService.Novel do
     |> Repo.preload(:user)
   end
 
+  @spec get_article!(any) :: nil | [%{optional(atom) => any}] | %{optional(atom) => any}
   @doc """
   Gets a single article.
   一つの小説をデータベースから取得
