@@ -7,26 +7,26 @@ defmodule NovelServiceWeb.ArticleController do
   alias NovelService.Accounts.Guardian
 
   plug :is_authorized when action in [:edit, :update, :delete]
-  # 全ての小説をモデルから取得しレンダリングする
+  # 全ての小説をモデルから取得し表示
   def index(conn, params) do
     articles = Novel.list_articles(params)
     render(conn, "index.html", articles: articles)
   end
 
-  # 小説をランキング形式でレンダリング
+  # 小説をランキング形式で表示
 
   def rank(conn, _params) do
     articles = Novel.list_articles_rank()
     render(conn, "rank.html", articles: articles)
   end
 
-  # ホーム画面をレンダリング
+  # ホーム画面を表示
   def home(conn, _params) do
     articles = Novel.list_articles_date()
     render(conn, "home.html", articles: articles)
   end
 
-  # 新しい小説を作成する画面をレンダリング
+  # 新しい小説を作成する画面を表示
 
   def new(conn, _params) do
     changeset = Novel.change_article(%Article{})
@@ -39,6 +39,8 @@ defmodule NovelServiceWeb.ArticleController do
   def create(conn, %{"article" => article_params}) do
     case Novel.create_article(Guardian.Plug.current_resource(conn), article_params) do
       {:ok, article} ->
+        Novel.inc_have_articles(article)
+
         conn
         |> put_flash(:info, "投稿が完了しました。")
         |> redirect(to: Routes.article_path(conn, :show, article))

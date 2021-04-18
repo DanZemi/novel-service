@@ -7,16 +7,19 @@ defmodule NovelServiceWeb.UserController do
 
   plug :is_authorized when action in [:edit, :update, :delete, :editpassword]
 
+  # ユーザー一覧画面を表示
   def index(conn, params) do
     users = Accounts.list_users(params)
     render(conn, "index.html", users: users)
   end
 
+  # ユーザー登録画面を表示
   def new(conn, _params) do
     changeset = Accounts.change_user(%User{})
     render(conn, "new.html", changeset: changeset)
   end
 
+  # ユーザー作成
   def create(conn, %{"user" => user_params}) do
     case Accounts.create_user(user_params) do
       {:ok, user} ->
@@ -30,16 +33,19 @@ defmodule NovelServiceWeb.UserController do
     end
   end
 
+  # 特定のユーザー画面を表示
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     render(conn, "show.html", user: user)
   end
 
+  # ユーザー編集画面を表示
   def edit(conn, _) do
     changeset = Accounts.change_user(conn.assigns.current_user)
     render(conn, "edit.html", user: conn.assigns.current_user, changeset: changeset)
   end
 
+  # ユーザー情報の更新
   def update(conn, %{"user" => user_params}) do
     user = conn.assigns.current_user
 
@@ -54,6 +60,7 @@ defmodule NovelServiceWeb.UserController do
     end
   end
 
+  # ユーザーの削除
   def delete(conn, _) do
     {:ok, _user} = Accounts.delete_user(conn.assigns.current_user)
 
@@ -63,6 +70,7 @@ defmodule NovelServiceWeb.UserController do
     |> redirect(to: Routes.article_path(conn, :home))
   end
 
+  # そのページを修正できるか
   defp is_authorized(conn, _) do
     current_user = Accounts.current_user(conn)
 
@@ -76,10 +84,11 @@ defmodule NovelServiceWeb.UserController do
     end
   end
 
+  # マイページを表示
   def mypage(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
 
-    if Accounts.current_viewed(conn, user.id) do
+    if Accounts.current_viewed?(conn, user.id) do
       render(conn, "mypage.html", user: user)
     else
       conn
@@ -89,10 +98,11 @@ defmodule NovelServiceWeb.UserController do
     end
   end
 
+  # 自分の情報画面を表示
   def myinfo(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
 
-    if Accounts.current_viewed(conn, user.id) do
+    if Accounts.current_viewed?(conn, user.id) do
       render(conn, "myinfo.html", user: user)
     else
       conn
@@ -102,6 +112,7 @@ defmodule NovelServiceWeb.UserController do
     end
   end
 
+  # ユーザーの情報画面を表示
   def userinfo(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
     render(conn, "userinfo.html", user: user)
