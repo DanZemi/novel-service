@@ -23,6 +23,7 @@
           <%= @user.bio %>
         </div>
         <div class="tab-pane fade" id="list-novels" role="tabpanel" aria-labelledby="list-novels-list">
+          <% IO.inspect(length(@user.articles)) %>
           <%= for article <- @user.articles do %>
           <div class="card">
             <div class="card-body">

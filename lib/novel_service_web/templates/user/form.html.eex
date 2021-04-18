@@ -9,7 +9,7 @@
     <%= label f, :名前, [for: "userInputName"] %>
     <%= text_input f, :name, [class: "form-control", id: "userInputName", placeholder: "naro1999"] %>
     <small id="nameHelp" class="form-text text-muted">
-      6文字以上・英数字
+      2文字以上の英数字
     </small>
   </div>
   <%= error_tag f, :name %>

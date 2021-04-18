@@ -20,7 +20,7 @@
       <% end %>
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">
-      投稿数:<%= user.have_articles %>
+      投稿数:<%= length(user.articles) %>
       登録日時: <%= user.inserted_at %>
     </h6>
   </div>
