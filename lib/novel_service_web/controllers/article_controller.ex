@@ -108,7 +108,7 @@ defmodule NovelServiceWeb.ArticleController do
     |> redirect(to: Routes.user_path(conn, :mypage, Accounts.current_user(conn)))
   end
 
-  # ログイン状態かの確認
+  # ログインしている人の小説か
   defp is_authorized(conn, _) do
     current_user = Accounts.current_user(conn)
     article = Novel.get_article!(conn.params["id"])
