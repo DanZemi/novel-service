@@ -60,7 +60,8 @@
           <% end %>
         </div>
         <div class="tab-pane fade" id="list-setting" role="tabpanel" aria-labelledby="list-setting-list">
-          <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user), class: "btn btn-outline-success btn-sm" %>
+          <%= link "ユーザー情報編集", to: Routes.user_path(@conn, :edit, @user), class: "btn btn-outline-success btn-sm mb-3" %><br>
+          <%= link "パスワード変更", to: Routes.user_path(@conn, :editpass, @user), class: "btn btn-outline-warning btn-sm" %>
         </div>
         <div class="tab-pane fade" id="delet-account" role="tabpanel" aria-labelledby="list-delete-list">
           <%= link "退会", to: Routes.user_path(@conn, :delete, @user), method: :delete, data: [confirm: "本当によろしいですか？"],class: "btn btn-outline-danger btn-sm" %>

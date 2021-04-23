@@ -48,6 +48,7 @@ defmodule NovelServiceWeb.Router do
     get "/mypage/:id", UserController, :mypage
     get "/mypage/myinfo/:id", UserController, :myinfo
     get "/mynovellists/", ArticleController, :mynovellists
+    get "/users/:id/editpass", UserController, :editpass
   end
 
   # Other scopes may use custom stacks.

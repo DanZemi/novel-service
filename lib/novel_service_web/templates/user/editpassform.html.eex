@@ -1,0 +1,25 @@
+<%= form_for @changeset, @action, fn f -> %>
+<%= if @changeset.action do %>
+<div class="alert alert-danger">
+    <p>入力に誤りが<%= Enum.count(f.errors) %>つあります</p>
+</div>
+<% end %>
+<form>
+    <div class="form-group">
+        <%= label f, :パスワード, [for: "userInputPassword"] %>
+        <%= password_input f, :password, [class: "form-control", id: "userInputPassword"] %>
+        <small id="passwordHelp" class="form-text text-muted">
+            半角英数字それぞれ１文字以上を含む８文字以上の文字
+        </small>
+    </div>
+    <%= error_tag f, :password %>
+    <div class="form-group">
+        <%= label f, :再確認パスワード, [for: "userInputRePassword"] %>
+        <%= password_input f, :password_confirmation, [class: "form-control", id: "userInputRePassword"] %>
+    </div>
+    <div class="text-center">
+        <%= submit "保存", class: "btn btn-info" %>
+    </div>
+</form>
+
+<% end %>

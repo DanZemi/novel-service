@@ -45,6 +45,11 @@ defmodule NovelServiceWeb.UserController do
     render(conn, "edit.html", user: conn.assigns.current_user, changeset: changeset)
   end
 
+  def editpass(conn, _) do
+    changeset = Accounts.change_user(conn.assigns.current_user)
+    render(conn, "editpass.html", user: conn.assigns.current_user, changeset: changeset)
+  end
+
   # ユーザー情報の更新
   def update(conn, %{"user" => user_params}) do
     user = conn.assigns.current_user
@@ -88,6 +93,7 @@ defmodule NovelServiceWeb.UserController do
   def mypage(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
 
+    # 現在のページにアクセスできるか
     if Accounts.current_viewed?(conn, user.id) do
       render(conn, "mypage.html", user: user)
     else
